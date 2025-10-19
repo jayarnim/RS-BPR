@@ -114,7 +114,7 @@ class Module(nn.Module):
         kwargs = dict(
             n_users=self.n_users,
             n_items=self.n_items,
-            n_factors=self.n_factors // 2,
+            n_factors=self.hidden[-1],
         )
         self.gmf = gmf.Module(**kwargs)
 
@@ -129,7 +129,7 @@ class Module(nn.Module):
 
     def _create_layers(self):
         kwargs = dict(
-            in_features=self.n_factors//2 + self.hidden[-1],
+            in_features=self.hidden[-1]*2,
             out_features=1,
         )
         self.pred_layer = nn.Linear(**kwargs)
